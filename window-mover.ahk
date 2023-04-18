@@ -23,6 +23,7 @@ changeIcon(CurrentDesktop)
 OutputDebug, [loading] desktops: %DesktopCount% current: %CurrentDesktop%
 
 #Include %A_ScriptDir%\user_config.ahk
+#Include %A_ScriptDir%\user_shortcuts.ahk
 return
 
 ;

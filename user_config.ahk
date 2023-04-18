@@ -1,3 +1,4 @@
+#SingleInstance Force
 ; ====================
 ; === INSTRUCTIONS ===
 ; ====================
@@ -18,6 +19,7 @@
 
 SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 
+; === SWITCHES ===
 #1::switchDesktopByNumber(1)
 #2::switchDesktopByNumber(2)
 #3::switchDesktopByNumber(3)
@@ -27,7 +29,10 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 #7::switchDesktopByNumber(7)
 #8::switchDesktopByNumber(8)
 #9::switchDesktopByNumber(9)
+#0::switchDesktopByNumber(10)
+#`::switchDesktopByNumber(1)
 
+; === MOVES ===
 #+1::MoveCurrentWindowToDesktop(1)
 #+2::MoveCurrentWindowToDesktop(2)
 #+3::MoveCurrentWindowToDesktop(3)
@@ -37,34 +42,93 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 #+7::MoveCurrentWindowToDesktop(7)
 #+8::MoveCurrentWindowToDesktop(8)
 #+9::MoveCurrentWindowToDesktop(9)
+#+0::MoveCurrentWindowToDesktop(1)
 
+
+;-----------------------------------------------------------------------------------------
+; === WIN10 QUICK ===
+^q::closeWindow()
 #q::closeWindow()
+#+t::LaunchWSL1()
+!Enter::toggleMaximize()
+!NumpadEnter::toggleMaximize()
 
-;#f::toggleMaximize()
+; #^Enter::LaunchWSL2()
+;#+n::CreateNewTextFile()
+; #+Enter::LaunchPowerShell()
+;^!k:: FixExplorerBackButton()
 
-; WSL -- create shortcut by dragging from start menu (can't be from a search result)
-;#Enter::Run, C:\window-mover.git\Debian GNU-Linux
+; === COMMUNICATION ===
+#+e::LaunchMail()
+#+!t::LaunchTeams()
+#+d::LaunchDiscord()
+^g::FixDiscord_CtrlG()
+#+b::LaunchDiscordPTB()
 
-; Windows Terminal
-; see here for wt.exe args: https://docs.microsoft.com/en-us/windows/terminal/command-line-arguments?tabs=windows
+; #+g::LaunchGmail()
 
-;WSL 1
-#Enter::
-Run, wt ;start terminal
-Sleep, 750 ;wait for newest window to open
-WinActivate, WSL1 ;just use a string that matches the start of the terminal window
-return
 
-;Powershell
-#+Enter::
-Run, wt -p "PowerShell 5"
-Sleep, 750
-WinActivate, PowerShell
-return
 
-;WSL2
-#^Enter::
-Run, wt -p "WSL2 (Ubuntu)"
-Sleep, 750
-WinActivate, WSL2
-return
+; === UTILITIES ===
+; #h::HideSysTray()
+; #+c::LaunchCygwin()
+
+; === SOFTWARES ===
+#+u::LaunchUG()
+#+k::LaunchPL()
+#+g::LaunchGNS()
+#Enter::LaunchWeb()
+#NumpadEnter::LaunchWeb()
+
+; === EDITORS ===
+#!+Enter::LaunchIDE()
+#+Enter::LaunchEditor()
+
+; #a::LaunchEmacs()
+;F3::LaunchNotepadPlusPlus()
+;+F3::MakeNotepadPlusPlusSplit()
+
+; === AHK Shortcuts ===
+#+w::LaunchAHKSpy()
+#+r::ReloadScript()
+
+
+; === MISC ===
+#+p::LaunchPomodoro()
+#+n::LaunchNeetcodeIO()
+#+f::LaunchFireshipIO()
+; #+c::ClearSCPullStack()
+
+; === TODO PENDING ===
+; === VIM STYLE KEYS ===
+; IM Style HJKL for most windows
+; Disable these in WindowsTerminal or OthersNeeded
+; #IfWinNotActive, ahk_class Chrome_WidgetWin_1    ;For discord and chrome
+{
+	; VIM style keybindings don't work if it is a terminal window. 
+    ^h:: Send {Left}
+        #IfWinActive, ahk_exe WindowsTerminal.exe Send {Left}
+
+    ^j::
+        #IfWinActive, ahk_exe WindowsTerminal.exe Send {Down}
+
+    ^k::
+        Send {Up}
+
+    ^l:: 
+        #IfWinNotActive, ahk_exe WindowsTerminal.exe Send {Right}
+    
+    ^i::
+        #IfWinActive, ahk_exe chrome.exe Send {^l}
+        #IfWinActive, ahk_exe Discord.exe Send {Up}
+        #IfWinNotActive, ahk_exe Zoom.exe Send {Right}
+    return
+
+    ^u::
+        #IfWinActive, ahk_exe chrome.exe Send {^j} ; Send Ctrl+J for downloads
+    return
+    
+    +l::
+        #IfWinActive, ahk_exe chrome.exe Send {^l}
+    return
+}
