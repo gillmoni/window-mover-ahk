@@ -2,41 +2,41 @@
 ;----------------------------------------------
 LaunchWeb() {
     Run, Chrome.exe
-        Sleep, 750
-        WinActivate, Chrome.exe
-        return
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
 }
 ;----------------------------------------------
 
 LaunchGmail() {
-    Run, Chrome.exe --new-window "https://gmail.com/problems"
-        Sleep, 750
-        WinActivate, Chrome.exe
-        return
+    Run, Chrome.exe --new-window "https://gmail.com/"
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
 }
 ;----------------------------------------------
 
 LaunchPomodoro() {
     Run, Chrome.exe --new-window "https://pomodor.app/timer"
-        Sleep, 750
-        WinActivate, Chrome.exe
-        return
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
 }
 ;----------------------------------------------
 
 LaunchFireshipIO() {
     Run, Chrome.exe --new-window "https://fireship.io/courses"
-        Sleep, 750
-        WinActivate, Chrome.exe
-        return
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
 }
 ;----------------------------------------------
 
 LaunchNeetcodeIO() {
     Run, Chrome.exe --new-window "https://neetcode.io/courses"
-        Sleep, 750
-        WinActivate, Chrome.exe
-        return
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
 }
 ;----------------------------------------------
 
@@ -154,7 +154,6 @@ LaunchDiscord() {
 ;----------------------------------------------
 
 LaunchGNS() {
-    
     if FileExist("C:\Program Files\GNS3\GNS3.exe")
        IfWinNotExist, AHK_Class Qt5152QWindowIcon
             Run, "C:\Program Files\GNS3\GNS3.exe"
@@ -174,8 +173,6 @@ LaunchPL() {
     Sleep, 750
     WinActivate, PL9.exe
     return
-
-
 
 }
 ;----------------------------------------------
@@ -255,37 +252,36 @@ LaunchAHKSpy(){
     AHK_FILE_WINDOWSPY := 0xFF7A ; 65402
     DetectHiddenWindows On
     SendMessage 0x111, AHK_FILE_WINDOWSPY,,, ahk_id %A_ScriptHwnd%
-;   Run, "C:\Users\%A_UserName%\Desktop\Dell-LUD-123.rdp"
     Sleep, 750
 return
 }
 ;----------------------------------------------
 
 ReloadScript() {
-        MsgBox, 48, Reload Warning, Reloading script, 0.5
-        Reload
+    MsgBox, 48, Reload Warning, Reloading script, 0.5
+    Reload
     return
 
 }
 
 ;----------------------------------------------
 
-; === MACROS ===
 CreateNewTextFile() {
-        Macro1:
-        Click, Right, 1
-        Sleep, 10
-        SendRaw, wtREADME
-        Send, {Enter}
+    Macro1:
+    Click, Right, 1
+    Sleep, 10
+    SendRaw, wtREADME
+    Send, {Enter}
     return
 }
 ;----------------------------------------------
+
 ; Using Ctrl+G to simulate a right click if not running Discord/Chrome
 FixDiscord_CtrlG()
 {
-        MsgBox, 48, Inside Discord, Sending Ctrl+G: But NOT WORKING, 0.5
-        #IfWinActive, ahk_exe Discord.exe Send {^g}
-        #IfWinNotActive, ahk_exe Discord.exe Send {AppsKey}
+    MsgBox, 48, Inside Discord, Sending Ctrl+G: But NOT WORKING, 0.5
+    #IfWinActive, ahk_exe Discord.exe Send {^g}
+    #IfWinNotActive, ahk_exe Discord.exe Send {AppsKey}
     return
 
 
@@ -303,5 +299,15 @@ FixExplorerBackButton() {
 ClearSCPullStack() {
     WinActivate, AHK_CLASS Afx:0000000140000000:0:0000000000010009:0000000000000000:0000000000000000
     Send {F2}
+
+}
+;----------------------------------------------
+
+;Turn off monitors with shortcut
+TurnMonitorsOff() {
+    if FileExist("C:\Windows\System32\nircmd.exe")
+        if FileExist("C:\Users\%A_UserName%\Desktop\monitor_off.lnk")
+            MsgBox, 48, Turn Off Monitors, Turning monitors off in 2 secs, 2.0
+            Run, "C:\Users\%A_UserName%\Desktop\monitor_off.lnk"
 
 }

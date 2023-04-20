@@ -60,23 +60,24 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 
 ; === COMMUNICATION ===
 #+e::LaunchMail()
+#+g::LaunchGmail()
 #+!t::LaunchTeams()
 #+d::LaunchDiscord()
 ^g::FixDiscord_CtrlG()
 #+b::LaunchDiscordPTB()
 
-; #+g::LaunchGmail()
 
 
 
 ; === UTILITIES ===
+^#!End::TurnMonitorsOff()
 ; #h::HideSysTray()
 ; #+c::LaunchCygwin()
 
 ; === SOFTWARES ===
 #+u::LaunchUG()
 #+k::LaunchPL()
-#+g::LaunchGNS()
+;#+g::LaunchGNS()
 #Enter::LaunchWeb()
 #NumpadEnter::LaunchWeb()
 
