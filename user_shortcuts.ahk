@@ -16,6 +16,14 @@ LaunchGmail() {
 }
 ;----------------------------------------------
 
+LaunchOdin() {
+    Run, Chrome.exe --new-window "https://www.theodinproject.com/dashboard"
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
+}
+;----------------------------------------------
+
 LaunchPomodoro() {
     Run, Chrome.exe --new-window "https://pomodor.app/timer"
     Sleep, 750
@@ -114,7 +122,6 @@ return
 ;----------------------------------------------
 
 LaunchUG() {
-
     IfWinNotExist, AHK_Class SUMATRA_PDF_FRAME
         ; This is executing SumatraPDF from the PATH folder
         Run, "spdf.bat"
@@ -144,7 +151,6 @@ LaunchDiscord() {
     ;if FileExist("C:\Users\%A_UserName%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk")
         IfWinNotExist, AHK_Class Discord.exe
             Run, "C:\Users\%A_UserName%\AppData\Local\Discord\app-1.0.9012\Discord.exe"
-            ;Run, "C:\Users\%A_UserName%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
         Else
             WinActivate, AHK_Class Discord.exe
         Sleep, 750
@@ -276,15 +282,13 @@ CreateNewTextFile() {
 }
 ;----------------------------------------------
 
-; Using Ctrl+G to simulate a right click if not running Discord/Chrome
-FixDiscord_CtrlG()
-{
-    MsgBox, 48, Inside Discord, Sending Ctrl+G: But NOT WORKING, 0.5
-    #IfWinActive, ahk_exe Discord.exe Send {^g}
-    #IfWinNotActive, ahk_exe Discord.exe Send {AppsKey}
+SendRightClick()
+{   
+    If WinActive("ahk_exe Discord.exe")
+        MsgBox, 48, Random Box, Random message disappears, 0.01
+    Else
+        Send {AppsKey}
     return
-
-
 }
 ;----------------------------------------------
 
@@ -310,4 +314,5 @@ TurnMonitorsOff() {
             MsgBox, 48, Turn Off Monitors, Turning monitors off in 2 secs, 2.0
             Run, "C:\Users\%A_UserName%\Desktop\monitor_off.lnk"
 
+    return
 }

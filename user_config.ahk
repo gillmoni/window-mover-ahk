@@ -59,15 +59,13 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 ;^!k:: FixExplorerBackButton()
 
 ; === COMMUNICATION ===
+#+o::LaunchOdin()
 #+e::LaunchMail()
 #+g::LaunchGmail()
 #+!t::LaunchTeams()
 #+d::LaunchDiscord()
-^g::FixDiscord_CtrlG()
-#+b::LaunchDiscordPTB()
-
-
-
+^+g::SendRightClick()
+;#+b::LaunchDiscordPTB()
 
 ; === UTILITIES ===
 ^#!End::TurnMonitorsOff()
