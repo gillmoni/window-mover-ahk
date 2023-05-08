@@ -52,6 +52,8 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 #+t::LaunchWSL1()
 !Enter::toggleMaximize()
 !NumpadEnter::toggleMaximize()
+#+!f::FocusMode()
+
 
 ; #^Enter::LaunchWSL2()
 ;#+n::CreateNewTextFile()

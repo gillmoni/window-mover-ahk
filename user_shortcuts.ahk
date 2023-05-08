@@ -335,3 +335,41 @@ TurnMonitorsOff() {
 
     return
 }
+;----------------------------------------------
+FocusMode()
+{
+    ; Get active window's process ID and class
+    WinGet, ActivePID, PID, A
+    WinGetClass, ActiveClass, A
+    
+    ; Get primary monitor coordinates
+    SysGet, MonitorCount, MonitorCount
+    Loop %MonitorCount%
+    {
+        SysGet, Monitor, MonitorWorkArea, %A_Index%
+        If (MonitorPrimary = "1")
+        {
+            Left := MonitorLeft
+            Top := MonitorTop
+            Right := MonitorRight
+            Bottom := MonitorBottom
+            Break
+        }
+    }
+    
+    ; Minimize all windows except the active app
+    WinGet, WindowList, List
+    Loop, %WindowList%
+    {
+        WinGet, ThisPID, PID, % "ahk_id " WindowList%A_Index%
+        WinGetClass, ThisClass, % "ahk_id " WindowList%A_Index%
+        If (ThisPID != ActivePID || ThisClass != ActiveClass)
+        {
+            WinMinimize, % "ahk_id " WindowList%A_Index%
+        }
+    }
+    
+    ; Maximize the active window and move it to the primary monitor
+    WinMaximize, A
+    WinMove, A,, %Left%, %Top%, %Right% - %Left%, %Bottom% - %Top%
+}
