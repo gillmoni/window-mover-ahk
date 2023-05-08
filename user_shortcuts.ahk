@@ -326,6 +326,26 @@ ClearSCPullStack() {
 }
 ;----------------------------------------------
 
+EditScript()
+{
+    ; Get the path of the script directory
+    ScriptDir := A_ScriptDir
+    
+    ; Set the file paths for FILE1 and FILE2
+    File1 := ScriptDir . "\user_config.ahk"
+    File2 := ScriptDir . "\user_shortcuts.ahk"
+    
+    ; Open the text editor with both files
+    MsgBox, 48, Editing Warning, The script directory is "%File1%", 1
+
+    
+    Run, "C:\Users\%A_UserName%\AppData\Local\Programs\Microsoft VS Code\code.exe" "%ScriptDir%"
+    ;Run, "C:\Program Files\Sublime Text\sublime_text.exe" %File1%" 
+    ;Run, "C:\Program Files\Sublime Text\sublime_text.exe" %File2%" 
+}
+
+;----------------------------------------------
+
 ;Turn off monitors with shortcut
 TurnMonitorsOff() {
     if FileExist("C:\Windows\System32\nircmd.exe")

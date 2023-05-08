@@ -91,6 +91,7 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 ;+F3::MakeNotepadPlusPlusSplit()
 
 ; === AHK Shortcuts ===
+#+!e::EditScript()
 #+w::LaunchAHKSpy()
 #+r::ReloadScript()
 
