@@ -16,6 +16,14 @@ LaunchGmail() {
 }
 ;----------------------------------------------
 
+LaunchChatgpt() {
+    Run, Chrome.exe --new-window "https://chat.openai.com/chat"
+    Sleep, 750
+    WinActivate, Chrome.exe
+    return
+}
+;----------------------------------------------
+
 LaunchOdin() {
     Run, Chrome.exe --new-window "https://www.theodinproject.com/dashboard"
     Sleep, 750
