@@ -33,7 +33,18 @@ LaunchOdin() {
 ;----------------------------------------------
 
 LaunchPomodoro() {
-    Run, Chrome.exe --new-window "https://pomodor.app/timer"
+    Run, Chrome.exe --app="https://pomodor.app/timer"
+    Sleep, 750
+    LaunchPriorityMatrix()
+    Sleep, 750
+    WinActivate, Chrome.exe
+    
+    return
+}
+;----------------------------------------------
+
+LaunchPriorityMatrix() {
+    Run, Chrome.exe --app="https://sync.appfluence.com/office365/app/index/app/home/agenda/"
     Sleep, 750
     WinActivate, Chrome.exe
     return
