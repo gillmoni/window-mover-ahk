@@ -169,7 +169,7 @@ return
 LaunchDiscord() {
     ;if FileExist("C:\Users\%A_UserName%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk")
         IfWinNotExist, AHK_Class Discord.exe
-            Run, "C:\Users\%A_UserName%\AppData\Local\Discord\app-1.0.9012\Discord.exe"
+            Run, "C:\Users\%A_UserName%\AppData\Local\Discord\app-1.0.9013\Discord.exe"
         Else
             WinActivate, AHK_Class Discord.exe
         Sleep, 750
