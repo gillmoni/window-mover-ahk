@@ -33,12 +33,24 @@ LaunchOdin() {
 ;----------------------------------------------
 
 LaunchPomodoro() {
-    Run, Chrome.exe --app="https://pomodor.app/timer"
-    Sleep, 750
-    LaunchPriorityMatrix()
-    Sleep, 750
-    WinActivate, Chrome.exe
+    SetTitleMatchMode, RegEx
     
+    if WinExist("Weekly To Do List Template - Matrix - Priority Matrix") {
+        WinActivate, .*Weekly To Do List Template.*Matrix.*Priority Matrix
+        WinWaitActive, .*Weekly To Do List Template.*Matrix.*Priority Matrix
+    }
+    else {
+        LaunchPriorityMatrix()
+    }
+    if !WinExist("Pomodor") {
+        Run, Chrome.exe --app="https://pomodor.app/timer"
+    } 
+    else {        
+        WinActivate, .*Pomodor.*
+        WinWaitActive, .*Pomodor.*
+    }
+
+    Sleep, 750    
     return
 }
 ;----------------------------------------------
