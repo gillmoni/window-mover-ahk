@@ -1,6 +1,6 @@
 # window-mover
 
-Use autohotkey to minimally reproduce some desirable i3/sway-like behavior on Windows. Forked from [pmb6tz/windows-desktop-switcher](https://github.com/pmb6tz/windows-desktop-switcher).
+Use Autohotkey to minimally reproduce some desirable i3/sway-like behavior on Windows. Forked from [pmb6tz/windows-desktop-switcher](https://github.com/pmb6tz/windows-desktop-switcher).
 
 - Switch to virtual desktops 1-9 using `⊞-#` and backfill # of desktops if needed
     - Press the hotkey for the same virtual desktop you are already on to switch back to the previous one
