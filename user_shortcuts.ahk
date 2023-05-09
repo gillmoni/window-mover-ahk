@@ -1,53 +1,83 @@
+; Set the default browser to Google Chrome
+global DefaultBrowser := "Chrome.exe"
+
+GetDefaultBrowser() {
+    ; Check if Google Chrome is installed
+    If FileExist("C:\Program Files\Google\Chrome\Application\chrome.exe") {
+        ; Set DefaultBrowser to Google Chrome
+        global DefaultBrowser := "Chrome.exe"
+        return %DefaultBrowser%
+    }
+    ; Check if Microsoft Edge is installed
+    else if FileExist("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe") {
+        ; Set DefaultBrowser to Microsoft Edge
+        global DefaultBrowser := "msedge.exe"
+        return %DefaultBrowser%
+    }
+}
+
 ; Includes funtions to launch various apps etc
 ;----------------------------------------------
 LaunchWeb() {
-    Run, Chrome.exe
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser%
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------
 
 LaunchGmail() {
-    Run, Chrome.exe --new-window "https://gmail.com/"
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://gmail.com/"
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------
 
 LaunchChatgpt() {
-    Run, Chrome.exe --new-window "https://chat.openai.com/chat"
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://chat.openai.com/chat"
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------
 
 LaunchOdin() {
-    Run, Chrome.exe --new-window "https://www.theodinproject.com/dashboard"
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://www.theodinproject.com/dashboard"
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------
 
 LaunchPomodoro() {
+    DefaultBrowser := GetDefaultBrowser()
     SetTitleMatchMode, RegEx
     
-    if WinExist("Weekly To Do List Template - Matrix - Priority Matrix") {
-        WinActivate, .*Weekly To Do List Template.*Matrix.*Priority Matrix
-        WinWaitActive, .*Weekly To Do List Template.*Matrix.*Priority Matrix
+    if WinExist(".*Weekly To Do List Template.*Matrix.*Priority Matrix")
+    {
+        WinActivate, .*WeQekly To Do List Template.*Matrix.*Priority Matrix
+        WinWaitActive, .*Weekly To Do List Template.*Matrix.*Priority Matrix, 3
     }
-    else {
+    else if WinExist("Home - Priority Matrix")
+    {
+        WinActivate, Home - Priority Matrix
+        WinWaitActive, Home - Priority Matrix, 3
+    
+    } else {
         LaunchPriorityMatrix()
     }
+    
     if !WinExist("Pomodor") {
-        Run, Chrome.exe --app="https://pomodor.app/timer"
+        Run, %DefaultBrowser% --app="https://pomodor.app/timer"
     } 
     else {        
         WinActivate, .*Pomodor.*
-        WinWaitActive, .*Pomodor.*
+        WinWaitActive, .*Pomodor.* , 3
     }
 
     Sleep, 750    
@@ -56,25 +86,28 @@ LaunchPomodoro() {
 ;----------------------------------------------
 
 LaunchPriorityMatrix() {
-    Run, Chrome.exe --app="https://sync.appfluence.com/office365/app/index/app/home/agenda/"
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --app="https://sync.appfluence.com/office365/app/index/app/home/agenda/"
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------
 
 LaunchFireshipIO() {
-    Run, Chrome.exe --new-window "https://fireship.io/courses"
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://fireship.io/courses"
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------
 
 LaunchNeetcodeIO() {
-    Run, Chrome.exe --new-window "https://neetcode.io/courses"
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://neetcode.io/courses"
     Sleep, 750
-    WinActivate, Chrome.exe
+    WinActivate, %DefaultBrowser%
     return
 }
 ;----------------------------------------------

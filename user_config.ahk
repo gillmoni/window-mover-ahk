@@ -97,7 +97,7 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 
 
 ; === MISC ===
-#+p::LaunchPomodoro()
+#+x::LaunchPomodoro()
 #+n::LaunchNeetcodeIO()
 #+f::LaunchFireshipIO()
 ; #+c::ClearSCPullStack()
