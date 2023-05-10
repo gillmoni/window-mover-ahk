@@ -65,6 +65,7 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 #+e::LaunchMail()
 #+g::LaunchGmail()
 #+!t::LaunchTeams()
+#+y::LaunchYoutube()
 #+c::LaunchChatgpt()
 #+d::LaunchDiscord()
 ^+g::SendRightClick()
@@ -97,7 +98,7 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 
 
 ; === MISC ===
-#+x::LaunchPomodoro()
+#+p::LaunchPomodoro()
 #+n::LaunchNeetcodeIO()
 #+f::LaunchFireshipIO()
 ; #+c::ClearSCPullStack()

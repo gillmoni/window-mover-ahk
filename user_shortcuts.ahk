@@ -27,6 +27,17 @@ LaunchWeb() {
 }
 ;----------------------------------------------
 
+LaunchYoutube() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://youtube.com/"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
+;----------------------------------------------
+
+;----------------------------------------------
+
 LaunchGmail() {
     global DefaultBrowser := GetDefaultBrowser()
     Run, %DefaultBrowser% --new-window "https://gmail.com/"
