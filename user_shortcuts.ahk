@@ -18,6 +18,7 @@ GetDefaultBrowser() {
 
 ; Includes funtions to launch various apps etc
 ;----------------------------------------------
+
 LaunchWeb() {
     global DefaultBrowser := GetDefaultBrowser()
     Run, %DefaultBrowser%
@@ -27,6 +28,14 @@ LaunchWeb() {
 }
 ;----------------------------------------------
 
+LaunchYoutubeIcognito() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% -incognito "https://youtube.com/"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
+;----------------------------------------------
 LaunchYoutube() {
     global DefaultBrowser := GetDefaultBrowser()
     Run, %DefaultBrowser% --new-window "https://youtube.com/"
@@ -36,6 +45,51 @@ LaunchYoutube() {
 }
 ;----------------------------------------------
 
+LaunchASCIL() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://www.sierrachart.com/index.php?page=doc/Contents.php#AdvancedCustomStudySystemInterfaceandLanguage"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
+;----------------------------------------------
+
+LaunchASCILIcognito() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% -incognito "https://www.sierrachart.com/index.php?page=doc/Contents.php#AdvancedCustomStudySystemInterfaceandLanguage"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
+;----------------------------------------------
+
+LaunchBlossom() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://www.blossomfoundation.com/spring-2023-kriya-registration"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
+;----------------------------------------------
+
+;----------------------------------------------
+
+LaunchHouseSigma() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://housesigma.com/"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
+;----------------------------------------------
+
+LaunchDevaGuru() {
+    global DefaultBrowser := GetDefaultBrowser()
+    Run, %DefaultBrowser% --new-window "https://deva.guru"
+    Sleep, 750
+    WinActivate, %DefaultBrowser%
+    return
+}
 ;----------------------------------------------
 
 LaunchGmail() {
@@ -80,7 +134,7 @@ LaunchPomodoro() {
         WinWaitActive, Home - Priority Matrix, 3
     
     } else {
-        LaunchPriorityMatrix()
+        ;LaunchPriorityMatrix()
     }
     
     if !WinExist("Pomodor") {
@@ -135,20 +189,20 @@ LaunchCygwin() {
 }
 ;----------------------------------------------
 
-LaunchMail() {
+LaunchOutlook() {
     IfWinNotExist, AHK_Class rctrl_renwnd32
-        Run, "C:\Program Files (x86)\Microsoft Office\root\Office16\Outlook.exe"
+        Run, outlook
+        ; Run, "C:\Program Files\Microsoft Office\root\Office16\Outlook.exe"
     Else
         WinActivate, AHK_Class rctrl_renwnd32
     Sleep, 750
     WinActivate, Outlook.exe
-
     return
 }
 ;----------------------------------------------
 
 LaunchTeams() {
-; Not it can also be checked with ProcessName
+; Note: it can also be checked with ProcessName
 ; Seems like it'd much easier, coz user won't have to look for class_names
     
     IfWinNotExist, Teams.exe
@@ -223,13 +277,12 @@ return
 ;----------------------------------------------
 
 LaunchDiscord() {
-    ;if FileExist("C:\Users\%A_UserName%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk")
-        IfWinNotExist, AHK_Class Discord.exe
-            Run, "C:\Users\%A_UserName%\AppData\Local\Discord\app-1.0.9013\Discord.exe"
-        Else
-            WinActivate, AHK_Class Discord.exe
-        Sleep, 750
-        WinActivate, Discord.exe
+    IfWinNotExist, AHK_Class Discord.exe
+        Run, "C:\Users\%A_UserName%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
+    Else
+        WinActivate, AHK_Class Discord.exe
+    Sleep, 750
+    WinActivate, Discord.exe
     return
 }
 ;----------------------------------------------
@@ -261,13 +314,13 @@ LaunchPL() {
 LaunchNotepadPlusPlus() {
     IfWinExist, AHK_CLASS Notepad++
         WinActivate, ahk_exe notepad++.exe
-        Send ^f
+        Send, ^f
         CoordMode, Mouse, Screen
         MouseMove, A_ScreenWidth/2, A_ScreenHeight/2
         sleep 50
         Click
-        ;Send {Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Enter}
-        Send !d
+        ;Send, {Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Enter}
+        Send, !d
     return
 }
 ;----------------------------------------------
@@ -275,14 +328,14 @@ LaunchNotepadPlusPlus() {
 MakeNotepadPlusPlusSplit() {
     IfWinExist, AHK_CLASS Notepad++
     WinActivate, ahk_exe notepad++.exe
-    Send ^f
+    Send, ^f
     CoordMode, Mouse, Screen
     MouseMove, A_ScreenWidth/2, A_ScreenHeight/2
     sleep 50
     Click
     ;
-    Send {Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Enter}
-    Send !o
+    Send, {Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Tab}{Enter}
+    Send, !o
     return
 
 }
@@ -338,22 +391,102 @@ return
 }
 ;----------------------------------------------
 
+ReloadExplorer() {
+    Runwait, taskkill /F /IM Explorer.exe
+    Runwait, taskkill /F /IM AltDrag.exe
+    run, explorer.exe
+    run, C:\Apps\AltDrag\AltDrag.exe
+    Reload
+    return
+}
+
+;----------------------------------------------
+
+ReloadSynergy() {
+    MsgBox, 64, Reloading Synergy, Reloading synergy, 1
+    
+    if FileExist("C:\Program Files\Synergy\run_synergy.vbs")
+        ; Find the PID of the process by name
+        pid := 0
+        Process, Exist, synergy.exe
+        pid := ErrorLevel
+
+        ; If the process exists, close it
+        if (pid > 0) {
+            Process, Close, %pid%
+        }
+
+        ; Find the PID of another process by name
+        pid2 := 0
+        Process, Exist, synergys.exe
+        pid2 := ErrorLevel
+
+        ; If the process exists, close it
+        if (pid2 > 0) {
+            Process, Close, %pid2%
+        }
+
+    Run, "C:\Program Files\Synergy\run_synergy.vbs"
+    Run, "C:/Users/Test/AppData/Roaming/Synergy/Synergy/my_synergys.conf"
+    return
+}
+
+;----------------------------------------------
+
 ReloadScript() {
     MsgBox, 48, Reload Warning, Reloading script, 0.5
     Reload
     return
-
 }
 
 ;----------------------------------------------
 
 CreateNewTextFile() {
-    Macro1:
-    Click, Right, 1
-    Sleep, 10
-    SendRaw, wtREADME
-    Send, {Enter}
-    return
+    MsgBox, 48, Create New README, Creating README, 0.2
+    ;System is very picky, DO NOT use explorer.exe process, but only ClassName
+    IfWinExist, AHK_CLASS CabinetWClass
+    {
+        ; MsgBox, 48, Activate Explorer, Activate Explorer, 0.5
+        WinActivate
+        
+        WinGetActiveTitle, Title
+        ; Check if it is correct place to make folder, i.e NOT 'This PC'
+        if !InStr(Title, "This PC")  {
+            Send, +{F10} ; Send RightClick
+            Send, {Up}{Up}{Right}{Up}{Up}{Up}{Enter} ; Navigate to Menu
+            Send, README{Enter} ; Set filename ad README
+            return
+        }
+        else {
+            MsgBox, 48, Cant create README, Not correct window, 0.5
+            return
+        }
+    }
+    else
+    {    MsgBox, 48, Cant create README, Explorer not open, 0.5
+        return
+    }
+    
+}
+;----------------------------------------------
+
+CreateNewTextFileOLD() {
+    MsgBox, 48, Create New README, Creating README, 0.2
+    ;System is very picky, DO NOT use explorer.exe process, but only ClassName
+    IfWinExist, AHK_CLASS CabinetWClass
+    {
+        MsgBox, 48, Activate Explorer, Activate Explorer, 0.5
+        WinActivate
+        Send, +{F10} ; Send RightClick
+        Send, {Up}{Up}{Right}{Up}{Up}{Up}{Enter} ; Navigate to Menu
+        Send, README{Enter} ; Set filename ad README
+        return
+    }
+    else
+    {    MsgBox, 48, Cant create README, Explorer not open, 0.5
+        return
+    }
+    
 }
 ;----------------------------------------------
 
@@ -362,13 +495,64 @@ SendRightClick()
     If WinActive("ahk_exe Discord.exe")
         MsgBox, 48, Random Box, Random message disappears, 0.01
     Else
-        Send {AppsKey}
+        Send, {AppsKey}
     return
 }
 ;----------------------------------------------
 
+Xshell_send_same_color() {
+    If WinActive("ahk_exe xshell.exe")
+        Send, ^{F9} ; Toggle Broadcast key
+    return
+}
+Xshell_toggle_broadcast() {
+    If WinActive("ahk_exe xshell.exe")
+        Send, ^{F11} ; Toggle Broadcast key
+    return
+}
+;----------------------------------------------
+
+Xshell_no_broadcast() {
+    If WinActive("ahk_exe xshell.exe")
+        MsgBox, 48, Doing Nothing, XShell, 0.1
+        Send, {!tkr}
+        sleep, 0.3
+    return
+}
+;----------------------------------------------
+
+Xshell_broadcast() {
+    If WinActive("ahk_exe xshell.exe")
+        MsgBox, 48, Doing Nothing, XShell, 0.1
+        sleep, 0.3
+        Send, {!tks}
+        sleep, 0.3
+    return
+}
+;----------------------------------------------
+
+MetaTrader_rectangle() {
+    If WinActive("ahk_exe terminal.exe")
+        MsgBox, 48, Doing Nothing, SkipMetaTrader, 0.1
+        ;sleep, 0.3
+    Else
+        Send, {!r}
+    return
+
+}
+
+MetaTrader_horizontalline() {
+    If WinActive("ahk_exe terminal.exe")
+        sleep, 0.3
+        Send, {!i}
+        Send, {lh}
+    return
+
+}
+;----------------------------------------------
 FixExplorerBackButton() {
-    #IfWinActive, ahk_exe explorer.exe Send {backspace}
+    #IfWinActive, ahk_exe explorer.exe 
+    Send, {backspace}
     return
 
 }
@@ -377,8 +561,7 @@ FixExplorerBackButton() {
 ;Clear PullStack in 3 DOMs Sierra Chart
 ClearSCPullStack() {
     WinActivate, AHK_CLASS Afx:0000000140000000:0:0000000000010009:0000000000000000:0000000000000000
-    Send {F2}
-
+    Send, {F2}
 }
 ;----------------------------------------------
 
@@ -393,7 +576,6 @@ EditScript()
     
     ; Open the text editor with both files
     MsgBox, 48, Editing Warning, The script directory is "%File1%", 1
-
     
     Run, "C:\Users\%A_UserName%\AppData\Local\Programs\Microsoft VS Code\code.exe" "%ScriptDir%"
     ;Run, "C:\Program Files\Sublime Text\sublime_text.exe" %File1%" 
@@ -405,13 +587,31 @@ EditScript()
 ;Turn off monitors with shortcut
 TurnMonitorsOff() {
     if FileExist("C:\Windows\System32\nircmd.exe")
+        MsgBox, 48, Turn Off Monitors, Turning monitors off in 2 secs, 2.0
+        sleep, 2000
         if FileExist("C:\Users\%A_UserName%\Desktop\monitor_off.lnk")
-            MsgBox, 48, Turn Off Monitors, Turning monitors off in 2 secs, 2.0
             Run, "C:\Users\%A_UserName%\Desktop\monitor_off.lnk"
-
-    return
 }
 ;----------------------------------------------
+
+SwitchBetweenSameApp() {
+    WinGetClass, OldClass, A
+    WinGet, ActiveProcessName, ProcessName, A
+    WinGet, WinClassCount, Count, ahk_exe %ActiveProcessName%
+    IF WinClassCount = 1
+        Return
+    loop, 2 {
+    WinSet, Bottom,, A
+    WinActivate, ahk_exe %ActiveProcessName%
+    WinGetClass, NewClass, A
+    if (OldClass <> "CabinetWClass" or NewClass = "CabinetWClass")
+        break
+    }
+    return
+}
+
+;----------------------------------------------
+
 FocusMode()
 {
     ; Get active window's process ID and class
@@ -448,4 +648,91 @@ FocusMode()
     ; Maximize the active window and move it to the primary monitor
     WinMaximize, A
     WinMove, A,, %Left%, %Top%, %Right% - %Left%, %Bottom% - %Top%
+}
+
+
+
+;----------------------------------------------
+
+OpenDebugGuide() {
+	if(winExist("OS10-Debugging-Training-Aug7&8.pdf - [PowerPoint Presentation] - SumatraPDF"))
+		WinActivate, OS10-Debugging-Training-Aug7&8.pdf - [PowerPoint Presentation] - SumatraPDF
+	Else
+		Run, "dpdf.bat"
+
+	Sleep, 750
+	return
+}
+
+;----------------------------------------------
+
+OpenUserGuide() {
+	if(winExist("smartfabric-os10-5-1_en-us.pdf - [Dell EMC SmartFabric OS10 User Guide Release 10.5.1] - SumatraPDF"))
+	WinActivate, smartfabric-os10-5-1_en-us.pdf - [Dell EMC SmartFabric OS10 User Guide Release 10.5.1] - SumatraPDF
+	Else
+		Run, "spdf.bat"
+
+	Sleep, 750
+
+	return
+}
+
+;----------------------------------------------
+
+ActivateChrome() {
+    WinActivate, ahk_exe chrome.exe
+    return
+}	
+;----------------------------------------------
+
+ToggleCharts(){
+    ; TradingView app will have a % sign to show instrument up/down
+    WinGetActiveTitle, Title
+    if InStr(Title, "%")  ; Check if the title contains '%'
+    {
+        send, !{NumpadEnter}
+    }
+    else if InStr(Title, "Sierra")  ; Check if the title contains '%'
+    {
+        ; This is maximize shortcut for Sierra Chart
+        send, ^!x
+    }
+    else {
+        ToggleMaximize()
+    }
+}
+;----------------------------------------------
+
+; This is pending work
+; Issue is moving Window between monitors
+SetupSierraOnDesktop() {
+    SetTitleMatchMode, RegEx
+        ;;if WinExist("Sierra Chart 2598 1. MG_ES_3Doms SC Data"){
+        if WinExist(".*Sierra.*3Doms*") {
+            MsgBox, 64, Moving Sierra, Moving Sierra, 0.4
+            ;MoveWindowToMonitor(".*Sierra.*3Doms", 3)
+        }
+        
+        ;if WinExist("Sierra.*2sec_PullStack")
+        ;if WinExist("SC4_Available.*")
+        ;if WinExist("#3.*ES.*")
+        ;if WinExist("#1.*ES.*")
+        ;if WinExist("SC4_Available.*")
+    
+    ;windows := [
+    ;    {"title": ".Sierra.*3Doms", "desktop": 2},
+    ;    {"title": "Sierra.*2sec_PullStack", "desktop": 2},
+    ;    {"title": "SC4_Available.*", "desktop": 2},
+    ;    {"title": "#3.*ES.*", "desktop": 2},
+    ;    {"title": "#1.*ES.*", "desktop": 2},
+    ;    {"title": "SC4_Available.*", "desktop": 2},
+    
+    ;]
+
+    ; Loop through the array and move each window to its specified desktop
+    ;for index, window in windows {
+        ;MoveWindowToDesktop(window.title, window.desktop)
+    ;}
+    Sleep, 750    
+    return
 }

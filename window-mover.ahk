@@ -222,7 +222,7 @@ closeWindow(){
     focusTheForemostWindow(CurrentDesktop)
 }
 
-toggleMaximize(){
+ToggleMaximize(){
     WinGet, maximized, MinMax, A
 
     if maximized {
@@ -231,3 +231,85 @@ toggleMaximize(){
         WinMaximize A
     }
 }
+MoveWindowToDesktop(windowTitle, desktopNumber) {
+    ; Get the window handle (HWND)
+    hwnd := WinExist(windowTitle)
+    
+    ; Get the desktop ID
+    desktopId := DllCall("VirtualDesktopAccessor\GetDesktopByNumber", "UInt", desktopNumber)
+
+    ; Move the window to the desired desktop
+    DllCall("VirtualDesktopAccessor\MoveWindowToDesktopNumber", "Ptr", hwnd, "UInt", desktopNumber)
+}
+
+
+
+
+;#Persistent
+;
+;; Function to find which monitor the window is on
+;FindMonitor(WindowID) {
+;    ; Get the number of monitors
+;    SysGet, MonitorCount, MonitorCount
+;    
+;    ; Get the window's position and size
+;    WinGetPos, WinX, WinY, WinW, WinH, ahk_id %WindowID%
+;    
+;    ; Iterate through each monitor to find which one contains the window
+;    Loop, %MonitorCount%
+;    {
+;        ; Get the monitor's position and size
+;        SysGet, Monitor, Monitor, %A_Index%
+;        MonitorLeft := MonitorLeft
+;        MonitorTop := MonitorTop
+;        MonitorRight := MonitorLeft + MonitorRight - MonitorLeft
+;        MonitorBottom := MonitorTop + MonitorBottom - MonitorTop
+;        
+;        ; Check if the window is within the monitor's bounds
+;        if (WinX >= MonitorLeft && WinX < MonitorRight && WinY >= MonitorTop && WinY < MonitorBottom) {
+;            return A_Index ; Return the monitor number
+;        }
+;    }
+;    return 0 ; Return 0 if the window is not found on any monitor
+;}
+;
+;; Function to move the window to a specified monitor while keeping the same position
+;MoveWindowToMonitor(WindowID, TargetMonitorID) {
+;    ; Get the monitor's position and size of the current monitor
+;    SysGet, CurrentMonitor, Monitor, %CurrentMonitor%
+;    MonitorLeft := CurrentMonitorLeft
+;    MonitorTop := CurrentMonitorTop
+;    
+;    ; Get the monitor's position and size of the target monitor
+;    SysGet, TargetMonitor, Monitor, %TargetMonitorID%
+;    TargetMonitorLeft := TargetMonitorLeft
+;    TargetMonitorTop := TargetMonitorTop
+;    
+;    ; Get the window's position and size
+;    WinGetPos, WinX, WinY, WinW, WinH, ahk_id %WindowID%
+;    
+;    ; Calculate the window's position relative to the current monitor
+;    RelativeX := WinX - MonitorLeft
+;    RelativeY := WinY - MonitorTop
+;    
+;    ; Calculate the new position on the target monitor
+;    NewX := TargetMonitorLeft + RelativeX
+;    NewY := TargetMonitorTop + RelativeY
+;    
+;    ; Move the window to the new position on the target monitor
+;    MsgBox, 64, Moving Sierra, Moving Sierra to %RelativeX%, 0.4
+;    WinMove, ahk_id %WindowID%, , NewX, NewY
+;}
+;
+;; Hotkey to move the active window to Monitor 3
+;F1::
+;    WinGet, WindowID, ID, A ; Get the ID of the active window
+;    CurrentMonitor := FindMonitor(WindowID)
+;    
+;    if (CurrentMonitor > 0) {
+;        ; Move the window to Monitor 3 while keeping its position relative to the current monitor
+;        MoveWindowToMonitor(WindowID, 3)
+;    } else {
+;        MsgBox, The window is not on any monitor.
+;    }
+;return

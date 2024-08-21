@@ -108,31 +108,42 @@ SetWorkingDir, C:\ ;prevent secondary WT windows from opening in script dir
 ; IM Style HJKL for most windows
 ; Disable these in WindowsTerminal or OthersNeeded
 ; #IfWinNotActive, ahk_class Chrome_WidgetWin_1    ;For discord and chrome
-{
-	; VIM style keybindings don't work if it is a terminal window. 
-    ^h:: Send {Left}
-        #IfWinActive, ahk_exe WindowsTerminal.exe Send {Left}
+;{
+;	; VIM style keybindings don't work if it is a terminal window. 
+;    ^h:: Send {Left}
+;        #IfWinActive, ahk_exe WindowsTerminal.exe Send {Left}
+;
+;    ^j::
+;        #IfWinActive, ahk_exe WindowsTerminal.exe Send {Down}
+;
+;    ^k::
+;        Send {Up}
+;
+;    ^l:: 
+;        #IfWinNotActive, ahk_exe WindowsTerminal.exe Send {Right}
+;    
+;    ^i::
+;        #IfWinActive, ahk_exe chrome.exe Send {^l}
+;        #IfWinActive, ahk_exe Discord.exe Send {Up}
+;        #IfWinNotActive, ahk_exe Zoom.exe Send {Right}
+;    return
+;
+;    ^u::
+;        #IfWinActive, ahk_exe chrome.exe Send {^j} ; Send Ctrl+J for downloads
+;    return
+;    
+;    +l::
+;        #IfWinActive, ahk_exe chrome.exe Send {^l}
+;    return
+;}
+;
+; === MetaTrader ===
+;!t::MetaTrader_line()
+;!h::MetaTrader_horizontalline()
+;!r::MetaTrader_rectangle()
 
-    ^j::
-        #IfWinActive, ahk_exe WindowsTerminal.exe Send {Down}
-
-    ^k::
-        Send {Up}
-
-    ^l:: 
-        #IfWinNotActive, ahk_exe WindowsTerminal.exe Send {Right}
-    
-    ^i::
-        #IfWinActive, ahk_exe chrome.exe Send {^l}
-        #IfWinActive, ahk_exe Discord.exe Send {Up}
-        #IfWinNotActive, ahk_exe Zoom.exe Send {Right}
-    return
-
-    ^u::
-        #IfWinActive, ahk_exe chrome.exe Send {^j} ; Send Ctrl+J for downloads
-    return
-    
-    +l::
-        #IfWinActive, ahk_exe chrome.exe Send {^l}
-    return
-}
+; === Obsolete Need Fix ===
+;#^Enter::LaunchWSL2()
+#!+n::CreateNewTextFile()
+;#+Enter::LaunchPowerShell()
+;^!k:: FixExplorerBackButton()
